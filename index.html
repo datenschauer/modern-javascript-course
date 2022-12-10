@@ -5,11 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-Do App</title>
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
     <header>
-      <h1>To-Do App</h1>
+      <div class="logo">
+        <img src = "img/logo.svg" alt="To-Do App Logo"/>
+        <h1>To-Do App</h1>
+      </div>
       <form id="new-task-form">
         <input type="text" id="new-task-input" placeholder="Was hast du geplant?" />
         <input type="submit" id="new-task-submit" value="Task hinzufügen" />
@@ -24,13 +28,13 @@
               <input type="text" class="text" value="Dies ist ein Beispiel für einen Task." readonly />
             </div>
             <div class="actions">
-              <button class="edit">Edit</button>
-              <button class="delete">Delete</button>
+              <button class="edit">Bearbeiten</button>
+              <button class="delete">Löschen</button>
             </div>
-          </div> -->
+          </div>  -->
         </div>
       </section>
     </main>
-    <script src="main.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

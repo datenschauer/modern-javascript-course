@@ -4,16 +4,19 @@ const input = document.querySelector("#new-task-input");
 const listElement = document.querySelector("#tasks");
 
 function addEditListener(taskEditElement, taskInputElement) {
+  let isInEditMode = false;
   taskEditElement.addEventListener("click", () => {
-    if (taskEditElement.innerText.toLowerCase() == "edit") {
+    if (!isInEditMode) {
       taskInputElement.removeAttribute("readonly");
       // calling focus() on it will cause the cursor to be placed in the field, ready for the user to enter text.
       // he "readonly" attribute is deleted by this action
       taskInputElement.focus();
-      taskEditElement.innerText = "Save";
+      taskEditElement.innerText = "Speichern";
+      isInEditMode = true
     } else {
       taskInputElement.setAttribute("readonly", "readonly");
-      taskEditElement.innerText = "Edit";
+      taskEditElement.innerText = "Bearbeiten";
+      isInEditMode = false
     }
   });
 }
@@ -26,9 +29,9 @@ function addDeleteListener(taskDeleteElement, taskElement) {
 
 function addActionButtons(taskActionsElement, taskEditElement, taskDeleteElement) {
   taskEditElement.classList.add("edit");
-  taskEditElement.innerHTML = "Edit";
-  taskDeleteElement.classList.add("edit");
-  taskDeleteElement.innerHTML = "Delete";
+  taskEditElement.innerHTML = "Bearbeiten";
+  taskDeleteElement.classList.add("delete");
+  taskDeleteElement.innerHTML = "Löschen";
 
   taskActionsElement.appendChild(taskEditElement);
   taskActionsElement.appendChild(taskDeleteElement);
