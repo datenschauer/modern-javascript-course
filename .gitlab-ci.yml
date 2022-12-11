@@ -9,7 +9,6 @@ pages:
   - cp -r * .public
   # Rename the ".public" directory to simply "public". This effectively moves the contents of ".public" to a new directory named "public".
   - mv .public public
-  - ls -la
   artifacts:
     paths:
     - public
