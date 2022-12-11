@@ -1,13 +1,24 @@
-image: node:lts
+image: python:latest
 
-deploy_to_pages:
-  stage: deploy
+# As we want to cache the installed packages, we have to install
+# them in a virtualenv and cache them as well.
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+before_script:
+    - pip install virtualenv
+    - virtualenv venv
+    - source venv/bin/activate
+
+run:
   script:
-    - mkdir .public
-    - cp -r * .public/
-    - mv .public public
+    - python fizz_buzz.py 100 fizz buzz > logging.txt
   artifacts:
     paths:
-      - public
-  only:
-    - master
+      - logging.txt
+
+run_tests:
+  script:
+    - python fizz_buzz.py 100 fizz buzz | python3 test_fizz_buzz.py fizz buzz
