@@ -6,7 +6,7 @@ pages:
   # Create a directory named ".public" in the current directory.
   - mkdir .public
   # Copy all files and directories from the current directory into the newly created ".public" directory.
-  - cp -r * public
+  - cp -r * .public
   # Rename the ".public" directory to simply "public". This effectively moves the contents of ".public" to a new directory named "public".
   - mv .public public
   - ls -la
