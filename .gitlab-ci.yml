@@ -1,16 +1,20 @@
-image: python:latest
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
 
-move:
-  script:
-    - mkdir .public
-    - cp -r * .public/
+default:
+  tags: ["Docker"]
 
-deploy_to_pages:
+image:
+  name: pandoc/latex
+  entrypoint: ["/bin/sh", "-c"]
+
+pages:
   stage: deploy
   script:
-    - mv .public public
+    - apk add --update --no-cache make
+    - make liste
+    - make build
+    - cp -R Ablage public
   artifacts:
     paths:
       - public
-  only:
-    - master
