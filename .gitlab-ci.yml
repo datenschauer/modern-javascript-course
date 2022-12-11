@@ -1,12 +1,5 @@
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
-
-default:
-  tags: ["Docker"]
-
 image:
   name: pandoc/latex
-  entrypoint: ["/bin/sh", "-c"]
 
 pages:
   stage: deploy
