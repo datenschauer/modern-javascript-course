@@ -1,13 +1,12 @@
 image: python:latest
 
 run:
-  stage: deploy
   script:
-    - mkdir .public
-    - cp -r * .public/
-    - mv .public public
+    - python fizz_buzz.py 100 fizz buzz > logging.txt
   artifacts:
     paths:
-      - public
-  only:
-    - master
+      - logging.txt
+
+run_tests:
+  script:
+    - python fizz_buzz.py 100 fizz buzz | python3 test_fizz_buzz.py fizz buzz
