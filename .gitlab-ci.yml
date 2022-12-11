@@ -4,10 +4,11 @@ image:
 pages:
   stage: deploy
   script:
-    - apk add --update --no-cache make
-    - make liste
-    - make build
-    - cp -R Ablage public
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
   artifacts:
     paths:
       - public
+  only:
+  - master
