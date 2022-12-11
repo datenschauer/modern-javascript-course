@@ -37,7 +37,7 @@ function addActionButtons(taskActionsElement, taskEditElement, taskDeleteElement
   taskActionsElement.appendChild(taskDeleteElement);
 }
 
-function createNewTask() {
+function createNewTask(task) {
   // The document.createElement() method is used to create a new element in an HTML document.
   // It takes a single argument, which is the name of the element to be created, and returns a reference to the new element.
   const taskElement = document.createElement("div");
