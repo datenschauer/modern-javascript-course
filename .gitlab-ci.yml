@@ -1,6 +1,6 @@
 image: python:latest
 
-deploy_to_pages:
+run:
   stage: deploy
   script:
     - mkdir .public
