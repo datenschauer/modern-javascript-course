@@ -1,3 +1,6 @@
+# The Docker image that will be used to build your app
+image: node:lts
+
 pages:
   stage: deploy
   script:
