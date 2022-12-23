@@ -1,4 +1,3 @@
-// Define Elements
 const form = document.querySelector("#new-task-form");
 const input = document.querySelector("#new-task-input");
 const listElement = document.querySelector("#tasks");
@@ -10,7 +9,7 @@ function addEditListener(taskEditElement, taskInputElement) {
       taskInputElement.removeAttribute("readonly");
       /*
       calling focus() on it will cause the cursor to be placed in the field, ready for the user to enter text.
-      he "readonly" attribute is deleted by this action
+      the "readonly" attribute is deleted by this action
       */
       taskInputElement.focus();
       taskEditElement.innerText = "Speichern";
@@ -55,7 +54,7 @@ function createNewTask(task) {
   taskInputElement.type = "text";
   taskInputElement.value = task;
   /*
-  The task_input_el.setAttribute("readonly", "readonly") method sets the readonly attribute on the task_input_el element.
+  The taskInputElement.setAttribute("readonly", "readonly") method sets the readonly attribute on the taskInputElement element.
   This means that the element will be displayed, but the user will not be able to interact with it or modify its content.
   */
   taskInputElement.setAttribute("readonly", "readonly");
