@@ -8,8 +8,10 @@ function addEditListener(taskEditElement, taskInputElement) {
   taskEditElement.addEventListener("click", () => {
     if (!isInEditMode) {
       taskInputElement.removeAttribute("readonly");
-      // calling focus() on it will cause the cursor to be placed in the field, ready for the user to enter text.
-      // he "readonly" attribute is deleted by this action
+      /*
+      calling focus() on it will cause the cursor to be placed in the field, ready for the user to enter text.
+      he "readonly" attribute is deleted by this action
+      */
       taskInputElement.focus();
       taskEditElement.innerText = "Speichern";
       isInEditMode = true;
@@ -38,8 +40,10 @@ function addActionButtons(taskActionsElement, taskEditElement, taskDeleteElement
 }
 
 function createNewTask(task) {
-  // The document.createElement() method is used to create a new element in an HTML document.
-  // It takes a single argument, which is the name of the element to be created, and returns a reference to the new element.
+  /*
+  The document.createElement() method is used to create a new element in an HTML document.
+  It takes a single argument, which is the name of the element to be created, and returns a reference to the new element.
+  */
   const taskElement = document.createElement("div");
   taskElement.classList.add("task");
 
@@ -50,9 +54,10 @@ function createNewTask(task) {
   taskInputElement.classList.add("text");
   taskInputElement.type = "text";
   taskInputElement.value = task;
-
-  // The task_input_el.setAttribute("readonly", "readonly") method sets the readonly attribute on the task_input_el element.
-  // This means that the element will be displayed, but the user will not be able to interact with it or modify its content.
+  /*
+  The task_input_el.setAttribute("readonly", "readonly") method sets the readonly attribute on the task_input_el element.
+  This means that the element will be displayed, but the user will not be able to interact with it or modify its content.
+  */
   taskInputElement.setAttribute("readonly", "readonly");
 
   // Add action buttons
@@ -73,9 +78,11 @@ function createNewTask(task) {
 }
 
 form.addEventListener("submit", (e) => {
-  // When using the e.preventDefault(); method in a submit event, it prevents the default
-  // action of the submit event from happening. In the case of a form submit event,
-  // the default action is to submit the form data to the server and reload the page.
+  /*
+    When using the e.preventDefault(); method in a submit event, it prevents the default
+    action of the submit event from happening. In the case of a form submit event,
+    the default action is to submit the form data to the server and reload the page.
+  */
   e.preventDefault();
   const task = input.value;
   if (!task) {
