@@ -27,5 +27,5 @@ Laden Sie das Repository (per `git clone`) herunter.
 ### Screenshots
 
 <div style="text-align:center">
-  <img src="/img/app-example.png" alt="Alt-Text" style="width:100%">
+  <img src="/img/app-example.png" alt="Alt-Text" style="width:70%">
 </div>
