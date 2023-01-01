@@ -62,7 +62,7 @@ button {
 }
 
 #new-task-input {
-  flex: 1 1 0%;
+  flex-grow: 1;
   padding: 1rem;
   margin-right: 1rem;
   color: var(--dark);
@@ -95,7 +95,6 @@ button {
 }
 
 main {
-  flex: 1 1 0%;
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
