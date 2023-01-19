@@ -8,8 +8,8 @@ function addEditListener(taskEditElement, taskInputElement) {
     if (!isInEditMode) {
       taskInputElement.removeAttribute("readonly");
       /*
-      calling focus() on it will cause the cursor to be placed in the field, ready for the user to enter text.
-      the "readonly" attribute is deleted by this action
+      Calling focus() on it will cause the cursor to be placed in the field, ready for the user to enter text.
+      The "readonly" attribute is deleted by this action.
       */
       taskInputElement.focus();
       taskEditElement.innerText = "Speichern";
