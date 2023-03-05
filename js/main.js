@@ -13,12 +13,11 @@ function addEditListener(taskEditElement, taskInputElement) {
       */
       taskInputElement.focus();
       taskEditElement.innerText = "Speichern";
-      isInEditMode = true;
     } else {
       taskInputElement.setAttribute("readonly", "readonly");
       taskEditElement.innerText = "Bearbeiten";
-      isInEditMode = false;
     }
+    isInEditMode = !isInEditMode;
   });
 }
 
