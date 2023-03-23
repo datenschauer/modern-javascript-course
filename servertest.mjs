@@ -4,7 +4,10 @@ const server = createServer((req, res) => {
     res.writeHead(200, { // Senden eines gültigen HTTP Headers
         'content-type': 'text/html; charset=utf-8;', // content als html deklarieren
     });
+    // eine neue URL generieren mit der WHATWG URL API: --> URL(route, base)
+    const url = new URL(req.url, 'http://127.0.0.1:8080'); // der erste Parameter ist die Route des Requests!
     // eine html Seite definieren
+    // language=HTML
     const body = `<!DOCTYPE html>
     <html>
         <head>
@@ -12,10 +15,9 @@ const server = createServer((req, res) => {
             <title>Node.js Demo</title>
         </head>
         <body>
-            <h1 style="color: red">Willkommen!</h1>
+            <h1 style="color: red">Willkommen ${url.searchParams.get('name') || 'Besucher'}!</h1>
         </body>
     </html>`
-
     res.end(body); // dem Client das HTML direkt senden
 });
 
