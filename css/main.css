@@ -11,23 +11,22 @@
 
 * {
   margin: 0;
-  box-sizing: border-box;
   font-family: "Manrope";
 }
 
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   color: var(--lightest);
   background-color: var(--light);
+  padding: 12px;
+  box-sizing: border-box; /* https://www.w3schools.com/css/css3_box-sizing.asp */
 }
 
 header {
-  padding: 24px 12px;
   max-width: 800px;
   width: 100%;
-  margin: 0 auto;
+  margin: 12px auto;
 }
 
 .logo {
@@ -68,11 +67,11 @@ button {
 }
 
 #new-task-input::placeholder {
-  color: var(--grey);
+  color: var(--grey); /* Set the color of the preview text */
 }
 
 #new-task-input:-webkit-autofill {
-  -webkit-background-clip: text;
+  -webkit-background-clip: text; /* When the user inputs text into this field and their browser's autofill feature is triggered, this rule sets the background color of the text to be the same as the background color of the input field, making it appear as if the text is filled in seamlessly without any interruption. */
 }
 
 #new-task-submit {
@@ -95,17 +94,17 @@ button {
 main {
   max-width: 800px;
   width: 100%;
-  margin: 0 auto;
+  margin: 24px auto;
 }
 
-.task-list {
-  padding: 12px;
-}
-
-.task-list h2 {
+h2 {
   font-size: 20px;
   font-weight: 500;
   color: var(--grey);
+}
+
+#tasks {
+  margin-top: 12px;
 }
 
 #tasks .task {
