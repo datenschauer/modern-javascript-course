@@ -46,6 +46,7 @@ h1 {
 
 #new-task-form {
   display: flex;
+  justify-content: space-between;
   background-color: var(--lightest);
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 82, 0.2);
@@ -60,10 +61,10 @@ button {
 }
 
 #new-task-input {
-  flex-grow: 1;
   padding: 14px;
   color: var(--dark);
   font-weight: 300;
+  width: 100%;
 }
 
 #new-task-input::placeholder {
@@ -117,8 +118,12 @@ h2 {
   margin-bottom: 12px;
 }
 
-.task .content .text {
+.task .content {
   width: 100%;
+  margin-right: 10px;
+}
+
+.task .content .text {
   transition: 0.4s;
 }
 
