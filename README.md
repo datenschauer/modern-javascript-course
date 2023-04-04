@@ -1,11 +1,23 @@
 # 01 To-Do-App
 
-Um einfache Konzepte in JavaScript, HTML und CSS zu wiederholen, soll eine To-Do Web-App implementiert werden.
+Um einfache Konzepte in React zu üben, soll eine To-Do Web-App implementiert werden.
 
 ### Installation
 
-1. Erstellen Sie eine lokale Kopie per `git clone`
-2. Starten sie einen lokalen Web-Server im Hauptverzeichnis
+1. Erstellen Sie eine lokale Kopie:
+```sh
+git clone
+```
+
+2. Installieren Sie alle notwendigen Packete:
+```sh
+npm install
+```
+
+3. Starten Sie den Development-Server (verfügbar unter `http://localhost:3000`)
+```sh
+npm start
+```
 
 
 ### Funktionen
@@ -29,5 +41,5 @@ Um einfache Konzepte in JavaScript, HTML und CSS zu wiederholen, soll eine To-Do
 ### Screenshots
 
 <div style="text-align:center">
-  <img src="/img/app-example.png" alt="Alt-Text" style="width:70%">
+  <img src="app-example.png" alt="Alt-Text" style="width:70%">
 </div>
