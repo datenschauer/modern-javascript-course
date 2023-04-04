@@ -1,12 +1,24 @@
-function TaskItem() {
+import { useContext } from "react";
+import { TaskContext } from "../App";
+
+function TaskItem({ task }) {
+  const { taskList, setTaskList } = useContext(TaskContext);
+
+  const handleDelete = () => {
+    const newTaskList = taskList.filter((t) => t.index !== task.index);
+    setTaskList(newTaskList);
+  };
+
   return (
-    <div class="task">
-      <div class="content">
-        <input type="text" class="text" value="Dies ist ein Beispiel für einen Task." readonly />
+    <div className="task">
+      <div className="content">
+        <input type="text" className="text" value={task.taskText} readOnly />
       </div>
-      <div class="actions">
-        <button class="edit">Bearbeiten</button>
-        <button class="delete">Löschen</button>
+      <div className="actions">
+        <button className="edit">Bearbeiten</button>
+        <button className="delete" onClick={handleDelete}>
+          Löschen
+        </button>
       </div>
     </div>
   );

@@ -124,6 +124,7 @@ h2 {
 }
 
 .task .content .text {
+  width: 100%;
   transition: 0.4s;
 }
 
