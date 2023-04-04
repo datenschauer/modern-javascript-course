@@ -7,7 +7,7 @@ import React, { createContext, useState } from "react";
 export const TaskContext = createContext();
 
 function App() {
-  const [taskList, setTaskList] = useState([{ index: 0, taskText: "Beispiel Task" }]);
+  const [taskList, setTaskList] = useState([]);
   return (
     <div className="App">
       <TaskContext.Provider value={{ taskList, setTaskList }}>
