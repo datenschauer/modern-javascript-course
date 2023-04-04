@@ -1,21 +1,20 @@
-import './App.css';
+import "./App.css";
+import "./fonts.css";
+import Header from "./components/Header";
+import TaskItem from "./components/TaskItem";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <main>
+        <div class="task-list">
+          <h2>Tasks</h2>
+          <div id="tasks">
+            <TaskItem />
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

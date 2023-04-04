@@ -1,38 +1,168 @@
-.App {
-  text-align: center;
+:root {
+  --dark: black;
+  --grey: #b5b5b5;
+  --pink: #ec4899;
+  --light: #f9f9fb;
+  --lighter: #f7f7f7;
+  --lightest: white;
+  --light-red: #ffdada;
+  --dark-red: #5b0000;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  font-family: "Manrope";
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
   display: flex;
   flex-direction: column;
+  color: var(--lightest);
+  background-color: var(--light);
+  padding: 12px;
+  box-sizing: border-box; /* https://www.w3schools.com/css/css3_box-sizing.asp */
+}
+
+header {
+  max-width: 800px;
+  width: 100%;
+  margin: 12px auto;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
-.App-link {
-  color: #61dafb;
+h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--dark);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#new-task-form {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--lightest);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 82, 0.2);
+}
+
+input,
+button {
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+#new-task-input {
+  padding: 14px;
+  color: var(--dark);
+  font-weight: 300;
+  width: 100%;
+}
+
+#new-task-input::placeholder {
+  color: var(--grey); /* Set the color of the preview text */
+}
+
+#new-task-input:-webkit-autofill {
+  -webkit-background-clip: text; /* When the user inputs text into this field and their browser's autofill feature is triggered, this rule sets the background color of the text to be the same as the background color of the input field, making it appear as if the text is filled in seamlessly without any interruption. */
+}
+
+#new-task-submit {
+  padding-left: 14px;
+  padding-right: 14px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: 1px solid rgb(0, 0, 0, 0.05);
+  font-weight: 700;
+  color: var(--dark);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#new-task-submit:hover {
+  color: var(--lightest);
+  background-color: var(--dark);
+}
+
+main {
+  max-width: 800px;
+  width: 100%;
+  margin: 24px auto;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--grey);
+}
+
+#tasks {
+  margin-top: 12px;
+}
+
+#tasks .task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--lightest);
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.task .content {
+  width: 100%;
+  margin-right: 10px;
+}
+
+.task .content .text {
+  transition: 0.4s;
+}
+
+.task .content .text:not(:read-only) {
+  color: var(--pink);
+}
+
+#tasks .task .actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task .actions button {
+  border-radius: 8px;
+  background-color: var(--lighter);
+  font-size: 12px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.4s;
+}
+
+.task .actions button:hover {
+  color: var(--lightest);
+  background-color: var(--dark);
+  opacity: 0.8;
+}
+
+.task .actions button:active {
+  opacity: 0.6;
+}
+
+.task .actions .delete {
+  background-color: var(--light-red);
+  color: var(--dark-red);
+}
+
+.task .actions .delete:hover {
+  background-color: var(--dark-red);
+  color: var(--lightest);
 }
