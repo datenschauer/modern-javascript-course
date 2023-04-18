@@ -1,4 +1,4 @@
-import { createServer } from 'http';
+import { createServer, STATUS_CODES } from 'http';
 import data from './data.js';
 import { getList } from './list.js';
 import { deleteAddress } from './delete.js';
@@ -31,3 +31,15 @@ function redirect(res, to) {
     });
     res.end(`302 Redirecting to ${to}`);
 }
+
+// Die wichtigsten Status Codes:
+// -----------------------------
+// 100-199: Informationen zur Anfrage
+// 200-299: Rückmeldung über den Erfolg einer Anfrage
+// 300-399: der Client muss weitere Aktionen unternehmen; Umleitung
+// 400-499: Es ist ein clientseitiger Fehler aufgetreten
+// 500-599: Es ist ein Serverseitiger Fehler aufgetreten
+//
+// über das Objekt STATUS_CODES aus dem http Modul von Node.js
+// können Sie sich alle standardisierten Codes anzeigen lassen
+console.log(STATUS_CODES)
