@@ -1,28 +1,33 @@
 import { createServer } from 'http';
 import data from './data.js';
 import { getList } from './list.js';
+import { deleteAddress } from './delete.js';
 
-const body = getList(data.addresses);
+// wir legen nur noch eine body variable an, initialisieren sie aber nicht
+let body;
 
-// wir erstellen einen Server, dem eine Funktion mit zwei Objekten für Request u. Response übergeben wird
 const server = createServer((req, res) => {
-    // schauen wir uns an, was alles in unserem Request Objekt enthalten ist:
-    if (req.url === "/") {
-        console.log("Request Methode (GET, POST, etc.):\n", req.method);
-        console.log("Request url:\n", req.url);
-        console.log("Request Header Informationen:\n", req.headers);
-        console.log("verwendete HTTP-Version:\n", req.httpVersion);
-        // console.log("Sogar ein Socket Objekt kann ausgelesen werden:\n", req.connection);
-    }
-    // bei eingehendem Request setzen wir den Header auf Code 200 und teilen die Art des Dokuments mit,
-    // das wir bereitstellen
-    res.writeHead(200, {'content-type': 'text/html'});
+    // wir parsen die aufgerufene URL und teilen sie in die Bestandteile auf
+    const parts = req.url.split('/');
 
-    // der .end Methode können wir unsere HTML Seite mitgeben
-    res.end(body);
+    if (parts[1] === 'delete') {
+        data.addresses = deleteAddress(data.addresses, parts[2]);
+        redirect(res, '/');
+    } else {
+        res.writeHead(200, {'content-type': 'text/html'});
+        body = getList(data.addresses);
+        res.end(body);
+    }
 });
 
-// zuletzt subskribieren wir ein Event, das den Server nach eingehenden Verbindungen auf Port 8888 horchen lässt
 server.listen(8888, () => {
     console.log('Adressbuch erreichbar unter http://localhost:8888');
 })
+
+function redirect(res, to) {
+    res.writeHead(302, {
+        location: to,
+        'content-type': 'text/plain'
+    });
+    res.end(`302 Redirecting to ${to}`);
+}
