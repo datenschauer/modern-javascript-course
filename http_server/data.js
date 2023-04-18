@@ -14,5 +14,12 @@ export default {
             street: "Donauweg 12",
             city: "Regensburg",
         },
+        {
+            id: 3,
+            firstname: "Angela",
+            lastname: "Merkel",
+            street: "Kanzlerstr. 66",
+            city: "Hauptstadt",
+        }
     ],
 };

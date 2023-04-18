@@ -16,6 +16,7 @@ export function getList(addresses) {
     <th>Strasse</th>
     <th>Stadt</th>
     <th><em>löschen</em></th>
+    <th><em>editieren</em></th>
     </tr>
 </thead>
 <tbody>
@@ -35,6 +36,7 @@ function createRow(address) {
         <td>${address.street}</td>
         <td>${address.city}</td>
         <td><a href="/delete/${address.id}">löschen</a></td>
+        <td><a href="/edit/${address.id}">editieren</a></td>
         </tr>
         `;
 }
