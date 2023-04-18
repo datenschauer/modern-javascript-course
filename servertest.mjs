@@ -6,6 +6,7 @@ const server = createServer((req, res) => {
     });
     // eine neue URL generieren mit der WHATWG URL API: --> URL(route, base)
     const url = new URL(req.url, 'http://127.0.0.1:8080'); // der erste Parameter ist die Route des Requests!
+    console.log(`requested URL: ${req.url}`);
     // eine html Seite definieren
     // language=HTML
     const body = `<!DOCTYPE html>
@@ -19,6 +20,11 @@ const server = createServer((req, res) => {
         </body>
     </html>`
     res.end(body); // dem Client das HTML direkt senden
+    // So sieht der Inhalt von url.searchParams aus:
+    console.log("SearchParams: ")
+    for (let entry of url.searchParams.entries()) {
+        console.log(entry);
+    }
 });
 
 server.listen(8080, "127.0.0.1", () => {
