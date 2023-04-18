@@ -5,7 +5,6 @@ export function getForm(addresses, id) {
     lastname: '',
     street: '',
     city: '',
-    country: '',
   };
   if (id) {
     address = addresses.find((adr) => adr.id === parseInt(id, 10));
@@ -34,10 +33,6 @@ export function getForm(addresses, id) {
       <div>
         <label for="city">Ort</label>
         <input type="text" id="city" name="city" value="${address.city}" />
-      </div>
-      <div>
-        <label for="country">Land</label>
-        <input type="text" id="country" name="country" value="${address.country}" />
       </div>
       <div>
         <button type="submit">speichern</button>
