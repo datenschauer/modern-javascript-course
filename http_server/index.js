@@ -1,14 +1,23 @@
 import { parse } from 'querystring';
-import { createServer } from 'http';
-import { readFile } from 'fs';
+import { createServer } from 'https';
+import { readFile, readFileSync } from 'fs';
 import { getData } from './data.js';
 import { getList } from './list.js';
 import { deleteAddress } from './delete.js';
 import { getForm } from './form.js';
 import { saveAddress } from './save.js';
 
-const server = createServer((req, res) => {
-    // wir parsen die aufgerufene URL und teilen sie in die Bestandteile auf
+// wir müssen zuerst einen öffentlichen Schlüssel und sodann ein Zertifikat generieren mit:
+// openssl genrsa -out localhost.key 2048
+// openssl req -new -x509 -key localhost.key -out localhost.cert -days 9999 -subj /CN=localhost
+// danach können wir die generierten Dateien hier einlesen und als Option createServer() übergeben
+const options = {
+    key: readFileSync('./localhost.key'),
+    cert: readFileSync('./localhost.cert'),
+};
+
+// Neu: der Schlüssel und das Zertifikat müssen als Optionen übergeben werden
+const server = createServer(options,(req, res) => {
     const parts = req.url.split('/');
 
     if (parts[1] === 'delete') {
@@ -20,21 +29,12 @@ const server = createServer((req, res) => {
         send(res, getForm(getData(), parts[2]));
     } else if (parts[1] === 'save' && req.method === 'POST') {
         let body = '';
-        // der body des Request Objekts liegt als Stream in ein oder mehreren Chunks vor
-        // sobald ein Chunk vorbei ist, wird ein 'readable' event ausgelöst
-        // so dann können wir den Chunk einlesen und an unsere Variable body anhängen
         req.on('readable', () => {
             const data = req.read();
             body += data !== null ? data : '';
         });
-        // sobald der letzte Chunk fertig ist, wird ein 'end' event ausgelöst
-        // nun können wir den stream parsen
         req.on('end', () => {
-            // so sieht der Stream vorher als querystring aus
-            console.log(body);
             const address = parse(body);
-            // und so in geparstem Zustand
-            console.log(address);
             saveAddress(getData(), address);
             redirect(res, '/');
         })
@@ -53,10 +53,10 @@ const server = createServer((req, res) => {
 });
 
 server.listen(8888, () => {
-    console.log('Adressbuch erreichbar unter http://localhost:8888');
+    // der Server ist nun natürlich unter https:// verfügbar
+    console.log('Adressbuch erreichbar unter https://localhost:8888');
 })
 
-// Um Code Duplikate zu vermeiden, erstellen wir eine Funktion send()
 function send(res, body) {
     res.writeHead(200, {'content-type': 'text/html'});
     res.end(body);
