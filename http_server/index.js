@@ -1,7 +1,7 @@
 import { parse } from 'querystring';
 import { createServer } from 'http';
 import { readFile } from 'fs';
-import data from './data.js';
+import { getData } from './data.js';
 import { getList } from './list.js';
 import { deleteAddress } from './delete.js';
 import { getForm } from './form.js';
@@ -12,12 +12,12 @@ const server = createServer((req, res) => {
     const parts = req.url.split('/');
 
     if (parts[1] === 'delete') {
-        data.addresses = deleteAddress(data.addresses, parts[2]);
+        deleteAddress(getData(), parts[2]);
         redirect(res, '/');
     } else if (parts[1] === 'new') {
         send(res, getForm());
     } else if (parts[1] === 'edit') {
-        send(res, getForm(data.addresses, parts[2]));
+        send(res, getForm(getData(), parts[2]));
     } else if (parts[1] === 'save' && req.method === 'POST') {
         let body = '';
         // der body des Request Objekts liegt als Stream in ein oder mehreren Chunks vor
@@ -35,7 +35,7 @@ const server = createServer((req, res) => {
             const address = parse(body);
             // und so in geparstem Zustand
             console.log(address);
-            data.addresses = saveAddress(data.addresses, address);
+            saveAddress(getData(), address);
             redirect(res, '/');
         })
     } else if (req.url === '/style.css') {
@@ -48,7 +48,7 @@ const server = createServer((req, res) => {
             }
         });
     } else {
-        send(res, getList(data.addresses));
+        send(res, getList(getData()));
     }
 });
 

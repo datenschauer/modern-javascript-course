@@ -1,3 +1,8 @@
+import { writeFileSync } from 'node:fs';
+import path from 'node:path';
+
+const DATA_FILE = path.resolve('data', 'addresses.json');
+
 export function saveAddress (addresses, address) {
     // ist ein Eintrag schon vorhanden, wird er editiert
     if (address.id) {
@@ -9,8 +14,15 @@ export function saveAddress (addresses, address) {
         addresses[index] = address;
     } else { // ist noch kein Eintrag vorhanden, wird er neu angelegt
         // zuerst suchen wir den Eintrag mit der höchsten ID und addieren 1 dazu
-        address.id = Math.max(...addresses.map((adr) => adr.id)) + 1;
+        if (addresses.length < 1) {
+            address.id = 1;
+        } else {
+            address.id = Math.max(...addresses.map((adr) => adr.id)) + 1;
+        }
         addresses.push(address);
     }
+
+    writeFileSync(DATA_FILE, JSON.stringify(addresses), 'utf-8');
+
     return addresses;
 }
