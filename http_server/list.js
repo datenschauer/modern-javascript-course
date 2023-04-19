@@ -5,6 +5,7 @@ export function getList(addresses) {
 <head>
 <meta charset="UTF-8">
 <title>Adressbuch</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h1>Mein Adressbuch</h1>
@@ -23,6 +24,7 @@ export function getList(addresses) {
     ${addresses.map(createRow).join('')}
 </tbody>
 </table>
+<p><a href="/new">Neuen Eintrag anlegen</a></p>
 </body>
 </html>
 `

@@ -1,5 +1,6 @@
 import { parse } from 'querystring';
 import { createServer } from 'http';
+import { readFile } from 'fs';
 import data from './data.js';
 import { getList } from './list.js';
 import { deleteAddress } from './delete.js';
@@ -37,6 +38,15 @@ const server = createServer((req, res) => {
             data.addresses = saveAddress(data.addresses, address);
             redirect(res, '/');
         })
+    } else if (req.url === '/style.css') {
+        readFile('public/style.css', 'utf-8', (err, data) => {
+            if (err) {
+                res.statusCode = 404;
+                res.end();
+            } else {
+                res.end(data);
+            }
+        });
     } else {
         send(res, getList(data.addresses));
     }
