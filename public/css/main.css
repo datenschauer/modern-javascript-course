@@ -121,6 +121,10 @@ main {
   margin-bottom: 1rem;
 }
 
+.task-id {
+  visibility: hidden;
+}
+
 .task .content {
   flex: 1 1 0%;
 }

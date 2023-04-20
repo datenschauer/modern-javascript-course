@@ -1,3 +1,5 @@
+"use strict";
+
 let form = document.querySelector("#new-task-form");
 let input = document.querySelector("#new-task-input");
 let listElement = document.querySelector("#tasks");
@@ -45,6 +47,12 @@ function createNewTask(task) {
   let taskElement = document.createElement("div");
   taskElement.classList.add("task");
 
+  let taskIdElement = document.createElement("div");
+  taskIdElement.classList.add("task-id");
+  // hole id vom server später
+  taskIdElement.value = "1";
+  console.log(taskIdElement.value);
+
   let taskContentElement = document.createElement("div");
   taskContentElement.classList.add("content");
 
@@ -69,6 +77,7 @@ function createNewTask(task) {
   addEditListener(taskEditElement, taskInputElement);
   addDeleteListener(taskDeleteElement, taskElement);
 
+  taskElement.appendChild(taskIdElement);
   taskElement.appendChild(taskContentElement);
   taskContentElement.appendChild(taskInputElement);
   taskElement.appendChild(taskActionsElement);
