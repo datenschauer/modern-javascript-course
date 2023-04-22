@@ -17,16 +17,26 @@
 body {
   display: flex;
   flex-direction: column;
-  color: var(--lightest);
   background-color: var(--light);
   padding: 12px;
-  box-sizing: border-box; /* https://www.w3schools.com/css/css3_box-sizing.asp */
+}
+
+main {
+  max-width: 800px;
+  width: 100%;
+  margin: 24px auto;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--grey);
 }
 
 header {
   max-width: 800px;
   width: 100%;
-  margin: 12px auto;
+  margin: 12px auto; /* When "auto" is used as the value for the "margin" property, it centers the element horizontally within its container. */
 }
 
 .logo {
@@ -72,7 +82,7 @@ button {
 }
 
 #new-task-input:-webkit-autofill {
-  -webkit-background-clip: text; /* When the user inputs text into this field and their browser's autofill feature is triggered, this rule sets the background color of the text to be the same as the background color of the input field, making it appear as if the text is filled in seamlessly without any interruption. */
+  -webkit-background-clip: text; /* When the user enters text into this field and the browser's autofill feature is triggered, this rule sets the background color of the text to be the same as the background color of the input field, making it appear as if the text is filled in seamlessly without any interruption. */
 }
 
 #new-task-submit {
@@ -80,7 +90,7 @@ button {
   padding-right: 14px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  border-left: 1px solid rgb(0, 0, 0, 0.05);
+  border-left: 1px solid rgb(240, 240, 240);
   font-weight: 700;
   color: var(--dark);
   cursor: pointer;
@@ -90,18 +100,6 @@ button {
 #new-task-submit:hover {
   color: var(--lightest);
   background-color: var(--dark);
-}
-
-main {
-  max-width: 800px;
-  width: 100%;
-  margin: 24px auto;
-}
-
-h2 {
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--grey);
 }
 
 #tasks {
@@ -118,16 +116,13 @@ h2 {
   margin-bottom: 12px;
 }
 
-.task .content {
+.task .text {
+  transition: 0.4s;
   width: 100%;
   margin-right: 10px;
 }
 
-.task .content .text {
-  transition: 0.4s;
-}
-
-.task .content .text:not(:read-only) {
+.task .text:not(:read-only) {
   color: var(--pink);
 }
 

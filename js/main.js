@@ -45,9 +45,6 @@ function createNewTask(task) {
   let taskElement = document.createElement("div");
   taskElement.classList.add("task");
 
-  let taskContentElement = document.createElement("div");
-  taskContentElement.classList.add("content");
-
   let taskInputElement = document.createElement("input");
   taskInputElement.classList.add("text");
   taskInputElement.type = "text";
@@ -69,8 +66,7 @@ function createNewTask(task) {
   addEditListener(taskEditElement, taskInputElement);
   addDeleteListener(taskDeleteElement, taskElement);
 
-  taskElement.appendChild(taskContentElement);
-  taskContentElement.appendChild(taskInputElement);
+  taskElement.appendChild(taskInputElement);
   taskElement.appendChild(taskActionsElement);
   listElement.appendChild(taskElement);
 }
