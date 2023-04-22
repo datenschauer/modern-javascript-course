@@ -10,7 +10,7 @@ function NewTaskForm() {
   
     // check if taskInput is empty
     if (!taskInput.trim()) {
-      alert("Please enter a task!");
+      alert("Bitte gebe den Namen des Tasks ein!");
       return; // stop execution of the function
     }
   
