@@ -2,9 +2,11 @@
 
 Um einfache Konzepte in JavaScript, HTML und CSS zu wiederholen, soll eine To-Do Web-App implementiert werden.
 
-### Vorgehen
+### Installation
 
-Laden Sie das Repository (per `git clone`) herunter.
+1. Erstellen Sie eine lokale Kopie per `git clone`
+2. Starten sie einen lokalen Web-Server im Hauptverzeichnis
+
 
 ### Funktionen
 
