@@ -24,9 +24,7 @@ function TaskItem({ task }) {
 
   return (
     <div className="task">
-      <div className="content">
-        <input type="text" className="text" value={task.taskText} readOnly={!editMode} ref={textInputRef} onChange={handleInputChange} />
-      </div>
+      <input type="text" className="text" value={task.taskText} readOnly={!editMode} ref={textInputRef} onChange={handleInputChange} />
       <div className="actions">
         <button
           className="edit"
