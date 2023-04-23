@@ -46,7 +46,7 @@ function createNewTask(task) {
   taskElement.classList.add("task");
 
   let taskInputElement = document.createElement("input");
-  taskInputElement.classList.add("text");
+  taskInputElement.classList.add("task-text");
   taskInputElement.type = "text";
   taskInputElement.value = task;
   /*
@@ -57,7 +57,7 @@ function createNewTask(task) {
 
   // Add action buttons
   let taskActionsElement = document.createElement("div");
-  taskActionsElement.classList.add("actions");
+  taskActionsElement.classList.add("task-actions");
 
   let taskEditElement = document.createElement("button");
   let taskDeleteElement = document.createElement("button");
