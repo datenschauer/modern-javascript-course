@@ -106,7 +106,7 @@ button {
   margin-top: 12px;
 }
 
-#tasks .task {
+.task {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -116,22 +116,22 @@ button {
   margin-bottom: 12px;
 }
 
-.task .text {
+.task-text {
   transition: 0.4s;
   width: 100%;
   margin-right: 10px;
 }
 
-.task .text:not(:read-only) {
+.task-text:not(:read-only) {
   color: var(--pink);
 }
 
-#tasks .task .actions {
+.task-actions {
   display: flex;
   gap: 10px;
 }
 
-.task .actions button {
+.task-actions button {
   border-radius: 8px;
   background-color: var(--lighter);
   font-size: 12px;
@@ -142,22 +142,22 @@ button {
   transition: 0.4s;
 }
 
-.task .actions button:hover {
+.task-actions button:hover {
   color: var(--lightest);
   background-color: var(--dark);
   opacity: 0.8;
 }
 
-.task .actions button:active {
+.task-actions button:active {
   opacity: 0.6;
 }
 
-.task .actions .delete {
+.task-actions .delete {
   background-color: var(--light-red);
   color: var(--dark-red);
 }
 
-.task .actions .delete:hover {
+.task-actions .delete:hover {
   background-color: var(--dark-red);
   color: var(--lightest);
 }
