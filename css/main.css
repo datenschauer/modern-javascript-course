@@ -1,5 +1,6 @@
 :root {
-  --dark: black;
+  --darkest: black;
+  --dark: #444444;
   --grey: #b5b5b5;
   --pink: #ec4899;
   --light: #f9f9fb;
@@ -10,15 +11,26 @@
 }
 
 * {
-  margin: 0;
   font-family: "Manrope";
 }
 
 body {
-  display: flex;
-  flex-direction: column;
   background-color: var(--light);
-  padding: 12px;
+  margin: 15px;
+}
+
+header {
+  max-width: 800px;
+  width: 100%;
+  margin: 12px auto; /* When "auto" is used as the value for the "margin" property, it centers the element horizontally within its container. */
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
 main {
@@ -31,27 +43,6 @@ h2 {
   font-size: 20px;
   font-weight: 500;
   color: var(--grey);
-}
-
-header {
-  max-width: 800px;
-  width: 100%;
-  margin: 12px auto; /* When "auto" is used as the value for the "margin" property, it centers the element horizontally within its container. */
-}
-
-.logo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-h1 {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--dark);
 }
 
 #new-task-form {
@@ -72,7 +63,6 @@ button {
 
 #new-task-input {
   padding: 14px;
-  color: var(--dark);
   font-weight: 300;
   width: 100%;
 }
@@ -82,7 +72,7 @@ button {
 }
 
 #new-task-input:-webkit-autofill {
-  -webkit-background-clip: text; /* When the user enters text into this field and the browser's autofill feature is triggered, this rule sets the background color of the text to be the same as the background color of the input field, making it appear as if the text is filled in seamlessly without any interruption. */
+  -webkit-background-clip: text; /* Wenn der Benutzer Text in dieses Feld eingibt und die Autofill-Funktion des Browsers ausgelöst wird, legt diese Regel die Hintergrundfarbe des Textes auf die gleiche Farbe wie die Hintergrundfarbe des Eingabefelds fest, so dass es aussieht, als wäre der Text nahtlos ohne Unterbrechung ausgefüllt. */
 }
 
 #new-task-submit {
@@ -92,37 +82,36 @@ button {
   border-bottom-right-radius: 10px;
   border-left: 1px solid rgb(240, 240, 240);
   font-weight: 700;
-  color: var(--dark);
   cursor: pointer;
   transition: 0.2s;
 }
 
 #new-task-submit:hover {
   color: var(--lightest);
-  background-color: var(--dark);
+  background-color: var(--darkest);
 }
 
 #tasks {
-  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .task {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   background-color: var(--lightest);
-  padding: 14px;
+  padding: 12px;
   border-radius: 10px;
-  margin-bottom: 12px;
 }
 
-.task-text {
+.task .text {
   transition: 0.4s;
   width: 100%;
   margin-right: 10px;
 }
 
-.task-text:not(:read-only) {
+.task .text:not(:read-only) {
   color: var(--pink);
 }
 
@@ -135,10 +124,10 @@ button {
   border-radius: 8px;
   background-color: var(--lighter);
   font-size: 12px;
-  padding: 6px 8px;
-  cursor: pointer;
   font-weight: 700;
   text-transform: uppercase;
+  padding: 6px 8px;
+  cursor: pointer;
   transition: 0.4s;
 }
 
@@ -148,10 +137,6 @@ button {
   opacity: 0.8;
 }
 
-.task-actions button:active {
-  opacity: 0.6;
-}
-
 .task-actions .delete {
   background-color: var(--light-red);
   color: var(--dark-red);
@@ -159,5 +144,5 @@ button {
 
 .task-actions .delete:hover {
   background-color: var(--dark-red);
-  color: var(--lightest);
+  color: var(--lighter);
 }
