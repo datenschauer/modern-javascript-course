@@ -36,14 +36,14 @@ const copy = function (source, target) {
         readInput(source)
             // leider nehmen then() und catch() wieder callbacks entgegen :-/
             .then(data => {
-                writeOutput(target, data)
-                    .then(() => {
-                        resolve();
-                    })
-                    .catch(err => {
-                        reject(err);
-                    });
+                // hier geben wir direkt das Promise aus writeOutput zurück, damit
+                // wir gleich im nächsten Schritt wieder .then() aufrufen können
+                return writeOutput(target, data);
             })
+            .then(() => {
+                resolve();
+            })
+            // alle Fehler werden durchgereicht und mit .catch() abgefangen.
             .catch(err => {
                 reject(err);
             });
@@ -52,9 +52,5 @@ const copy = function (source, target) {
 
 // wir testen das Ganze!
 copy('input.txt', 'output.txt')
-    .then(() => {
-        console.log('Datei kopiert!');
-    })
-    .catch(err => {
-        console.log(err);
-    });
+    .then( () => console.log('Datei kopiert!') )
+    .catch( err => console.log(err) );
