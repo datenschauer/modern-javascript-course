@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // hier geben wir noch das Verzeichnis für statische Dateien an (css, js, fonts...)
 app.use(express.static(path.join(__dirname, "public")));
-
+// der Router, den wir definieren soll ab dem root Teil der URL gültig sein
 app.use("/", indexRouter);
 
 const port = 3030;
