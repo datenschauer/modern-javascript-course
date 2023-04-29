@@ -1,6 +1,6 @@
 import fs from 'fs'; // wir wollen mit Async-Await arbeiten!
 import path from 'path';
-import {TaskRepository} from '../interfaces/taskRepository.js';
+import { TaskRepository } from '../interfaces/taskRepository.js';
 
 export class JsonFileTaskRepository extends TaskRepository {
     constructor(filename) {
@@ -27,42 +27,27 @@ export class JsonFileTaskRepository extends TaskRepository {
         }
     };
 
-    getLatestId() {
-        const latest = Math.max(...this.data.map(t => t.id));
-        return latest > 0 ? latest : 0;
-    };
-
-    getTasks() {
+    async getTasks() {
         return this.data;
     };
 
-    getTaskById(id) {
-        const task = this.data.filter(t => t.id === id);
-        if (task.length > 0) {
-            return task;
-        } else {
-            console.log(`Task mit Id ${id} konnte nicht gefunden werden.`);
-        }
-    };
-
-    addTask(task) {
-        task.id = this.getLatestId() + 1;
+    async addTask( task ) {
         this.data.push(task);
         console.log(`Task mit Id ${task.id} wurde angelegt`);
         this.save();
     };
 
-    updateTask(id, task) {
-        const index = this.data.findIndex(t => t.id === id);
+    async updateTask(task) {
+        const index = this.data.findIndex(t => t.id === task.id);
         if (index > 0) {
             this.data[index] = task;
             this.save();
         } else {
-            throw new Error(`Task mit id ${id} konnte nicht gefunden werden.`);
+            throw new Error(`Task mit id ${task.id} konnte nicht gefunden werden.`);
         }
     };
 
-    deleteTask(id) {
+    async deleteTask(id) {
         this.data = this.data.filter(t => t.id !== id);
         this.save();
     };

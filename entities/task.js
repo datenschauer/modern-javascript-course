@@ -1,6 +1,8 @@
+import crypto from "crypto";
+
 export class Task {
-    constructor(id, text) {
-        this.id = id;
+    constructor( text ) {
+        this.id = crypto.randomUUID();
         this.text = text;
     }
 }
