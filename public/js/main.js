@@ -4,6 +4,8 @@ let form = document.querySelector("#new-task-form");
 let input = document.querySelector("#new-task-input");
 let listElement = document.querySelector("#tasks");
 
+const baseUrl = "http://localhost:3030"
+
 function addEditListener(taskEditElement, taskInputElement) {
   let isInEditMode = false;
   taskEditElement.addEventListener("click", () => {
@@ -18,6 +20,11 @@ function addEditListener(taskEditElement, taskInputElement) {
     } else {
       taskInputElement.setAttribute("readonly", "readonly");
       taskEditElement.innerText = "Bearbeiten";
+      dbQuery(
+          `${baseUrl}/tasks/${taskInputElement.id}`,
+          "PUT",
+          { text: taskInputElement.value },
+      )
     }
     isInEditMode = !isInEditMode;
   });
@@ -25,7 +32,12 @@ function addEditListener(taskEditElement, taskInputElement) {
 
 function addDeleteListener(taskDeleteElement, taskElement) {
   taskDeleteElement.addEventListener("click", () => {
-    listElement.removeChild(taskElement);
+     const id = taskElement.firstChild.firstChild.id;
+     dbQuery(
+         `${baseUrl}/tasks/${id}`,
+         "DELETE",
+     )
+     listElement.removeChild(taskElement);
   });
 }
 
@@ -39,7 +51,7 @@ function addActionButtons(taskActionsElement, taskEditElement, taskDeleteElement
   taskActionsElement.appendChild(taskDeleteElement);
 }
 
-function createNewTask(task) {
+function createNewTask(text, id) {
   /*
   The document.createElement() method is used to create a new element in an HTML document.
   It takes a single argument, which is the name of the element to be created, and returns a reference to the new element.
@@ -47,19 +59,14 @@ function createNewTask(task) {
   let taskElement = document.createElement("div");
   taskElement.classList.add("task");
 
-  let taskIdElement = document.createElement("div");
-  taskIdElement.classList.add("task-id");
-  // hole id vom server später
-  taskIdElement.value = "1";
-  console.log(taskIdElement.value);
-
   let taskContentElement = document.createElement("div");
   taskContentElement.classList.add("content");
 
   let taskInputElement = document.createElement("input");
   taskInputElement.classList.add("text");
+  taskInputElement.id = id ?? '0';
   taskInputElement.type = "text";
-  taskInputElement.value = task;
+  taskInputElement.value = text;
   /*
   The taskInputElement.setAttribute("readonly", "readonly") method sets the readonly attribute on the taskInputElement element.
   This means that the element will be displayed, but the user will not be able to interact with it or modify its content.
@@ -77,11 +84,15 @@ function createNewTask(task) {
   addEditListener(taskEditElement, taskInputElement);
   addDeleteListener(taskDeleteElement, taskElement);
 
-  taskElement.appendChild(taskIdElement);
   taskElement.appendChild(taskContentElement);
   taskContentElement.appendChild(taskInputElement);
   taskElement.appendChild(taskActionsElement);
   listElement.appendChild(taskElement);
+
+  // wenn noch keine ID vorhanden war, müssen wir den Task auch auf dem Server anlegen
+  if (taskInputElement.id === '0') {
+    dbQuery(`${baseUrl}/tasks`, 'POST', { text: text });
+  }
 }
 
 form.addEventListener("submit", (e) => {
@@ -91,12 +102,39 @@ form.addEventListener("submit", (e) => {
     the default action is to submit the form data to the server and reload the page.
   */
   e.preventDefault();
-  let task = input.value;
-  if (!task) {
+  let text = input.value;
+  if (!text) {
     alert("Bitte gebe einen Task ein!");
   } else {
-    createNewTask(task);
+    createNewTask(text);
     // Clear text input
     input.value = "";
   }
 });
+
+async function getInitialTasks() {
+  const response = await fetch('http://localhost:3030/tasks');
+  if (response) {
+    const tasks = await response.json();
+    for (let task of tasks) {
+      createNewTask(task.text, task.id);
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", getInitialTasks);
+
+async function dbQuery (url, method, body={}, contentType="application/json") {
+  try {
+    await fetch(url, {
+      method: method,
+      headers: {"Content-Type": contentType},
+      body: JSON.stringify(body),
+    });
+  } catch (e) {
+    let errorContainer = document.querySelector("#error-container");
+    let errorMsg = document.createElement("p");
+    errorMsg.innerHTML = `Verbindung zum Server konnte nicht hergestellt werden. ${e}`;
+    errorContainer.appendChild(errorMsg);
+  }
+}
