@@ -4,12 +4,15 @@ import express from "express";
 import { taskRouter } from "./routes/taskRoutes.js";
 import { indexRouter } from "./routes/index.js";
 import path from "path";
+import { flaschenpost } from 'flaschenpost';
 import { __dirname } from "./dirname.js";
 import { JsonFileTaskRepository } from './db/JsonFileTaskRepository.js';
 
 const taskRepo = new JsonFileTaskRepository('./db/tasks.json');
 
 const app = express();
+
+const logger = flaschenpost.getLogger();
 
 // HIER definieren wir die Middleware, die wir verwenden wollen mit app.use()
 // wir wollen JSON verarbeiten können
@@ -25,5 +28,5 @@ app.use("/", taskRouter( taskRepo ));
 const port = 3030;
 
 app.listen(port, () => {
-    console.log(`Server started on http://localhost:${port}`);
+    logger.info(`Server started on http://localhost:${port}`);
 });

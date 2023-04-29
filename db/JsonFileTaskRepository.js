@@ -1,6 +1,9 @@
 import fs from 'fs'; // wir wollen mit Async-Await arbeiten!
 import path from 'path';
 import { TaskRepository } from '../interfaces/taskRepository.js';
+import { flaschenpost } from "flaschenpost";
+
+const logger = flaschenpost.getLogger();
 
 export class JsonFileTaskRepository extends TaskRepository {
     constructor(filename) {
@@ -15,7 +18,7 @@ export class JsonFileTaskRepository extends TaskRepository {
             const data = fs.readFileSync(this.filename, 'utf8'); // option utf8, sonst Buffer!
             this.data = JSON.parse(data) ?? [];
         } catch (e) {
-            console.log(`${this.filename} konnte nicht gelesen werden! Grund: ${e}`);
+            logger.warn(`${this.filename} konnte nicht gelesen werden! Grund: ${e}`);
         }
     };
 
@@ -23,7 +26,7 @@ export class JsonFileTaskRepository extends TaskRepository {
         try {
             fs.writeFileSync(this.filename, JSON.stringify(this.data));
         } catch (e) {
-            console.log(`${this.filename} konnte nicht geschrieben werden! Grund: ${e}`);
+            logger.warn(`${this.filename} konnte nicht geschrieben werden! Grund: ${e}`);
         }
     };
 
@@ -33,7 +36,7 @@ export class JsonFileTaskRepository extends TaskRepository {
 
     async addTask( task ) {
         this.data.push(task);
-        console.log(`Task mit Id ${task.id} wurde angelegt`);
+        logger.info(`Task mit Id ${task.id} wurde angelegt`);
         this.save();
     };
 
@@ -42,6 +45,7 @@ export class JsonFileTaskRepository extends TaskRepository {
         if (index > 0) {
             this.data[index] = task;
             this.save();
+            logger.info(`Task mit Id ${task.id} upgedated.`)
         } else {
             throw new Error(`Task mit id ${task.id} konnte nicht gefunden werden.`);
         }
@@ -49,6 +53,7 @@ export class JsonFileTaskRepository extends TaskRepository {
 
     async deleteTask(id) {
         this.data = this.data.filter(t => t.id !== id);
+        logger.info(`Task mit Id ${id} gelöscht.`)
         this.save();
     };
 }
