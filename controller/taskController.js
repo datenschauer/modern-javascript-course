@@ -2,8 +2,12 @@ import { Task } from "../entities/task.js";
 
 export function getTasks(taskRepo) {
     return async function (req, res) {
-        const tasks = await taskRepo.getTasks();
-        res.json(tasks);
+        try {
+            const tasks = await taskRepo.getTasks();
+            res.json(tasks);
+        } catch (e) {
+           res.status(404).send(e);
+        }
     }
 }
 
@@ -22,19 +26,25 @@ export function addTask(taskRepo) {
 
 export function updateTask(taskRepo) {
     return async function (req, res) {
-        const { id } = req.params;
-        const { text } = req.body;
-        const task = new Task(text);
-        task.id = id;
-        await taskRepo.updateTask(task);
-        res.json(id);
+        try {
+            const { id } = req.params;
+            const { text } = req.body;
+            await taskRepo.updateTask(id, text);
+            res.send("done!");
+        } catch (e) {
+            res.status(404).send(e)
+        }
     }
 }
 
 export function deleteTask(taskRepo) {
     return async function (req, res) {
-        const { id } = req.params;
-        await taskRepo.deleteTask(id);
-        res.json(id);
+        try {
+            const { id } = req.params;
+            await taskRepo.deleteTask(id);
+            res.json(id);
+        } catch (e) {
+           res.status(404).send(e)
+        }
     }
 }

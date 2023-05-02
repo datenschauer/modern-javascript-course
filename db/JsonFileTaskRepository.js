@@ -40,18 +40,19 @@ export class JsonFileTaskRepository extends TaskRepository {
         this.save();
     };
 
-    async updateTask(task) {
-        const index = this.data.findIndex(t => t.id === task.id);
-        if (index > 0) {
-            this.data[index] = task;
+    async updateTask(id, text) {
+        const index = this.data.findIndex(t => t.id === id);
+        if (index > -1) {
+            this.data[index].text = text;
             this.save();
-            logger.info(`Task mit Id ${task.id} upgedated.`)
+            logger.info(`Task mit Id ${id} upgedated.`)
         } else {
-            throw new Error(`Task mit id ${task.id} konnte nicht gefunden werden.`);
+            throw new Error(`Task mit id ${id} konnte nicht gefunden werden.`);
         }
     };
 
     async deleteTask(id) {
+        console.log(id);
         this.data = this.data.filter(t => t.id !== id);
         logger.info(`Task mit Id ${id} gelöscht.`)
         this.save();

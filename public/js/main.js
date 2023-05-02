@@ -21,11 +21,11 @@ function addEditListener(taskEditElement, taskInputElement) {
       taskInputElement.setAttribute("readonly", "readonly");
       taskEditElement.innerText = "Bearbeiten";
       dbQuery(
-          `${baseUrl}/tasks/${taskInputElement.id}`,
-          "PUT",
-          { text: taskInputElement.value },
-      )
-    }
+        `${baseUrl}/tasks/${taskInputElement.id}`,
+        "PUT",
+        { text: taskInputElement.value },
+        );
+      }
     isInEditMode = !isInEditMode;
   });
 }
@@ -125,16 +125,14 @@ async function getInitialTasks() {
 document.addEventListener("DOMContentLoaded", getInitialTasks);
 
 async function dbQuery (url, method, body={}, contentType="application/json") {
-  try {
     await fetch(url, {
       method: method,
       headers: {"Content-Type": contentType},
       body: JSON.stringify(body),
+    }).then(() => console.log(`${method} query successful!`)).catch(_ => {
+      let errorContainer = document.querySelector("#error-container");
+      let errorMsg = document.createElement("p");
+      errorMsg.innerHTML = `Verbindung zum Server konnte nicht hergestellt werden! Versuchen Sie es später noch einmal.`;
+      errorContainer.appendChild(errorMsg);
     });
-  } catch (e) {
-    let errorContainer = document.querySelector("#error-container");
-    let errorMsg = document.createElement("p");
-    errorMsg.innerHTML = `Verbindung zum Server konnte nicht hergestellt werden. ${e}`;
-    errorContainer.appendChild(errorMsg);
-  }
 }
