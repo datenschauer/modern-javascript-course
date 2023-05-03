@@ -1,6 +1,22 @@
-let form = document.querySelector("#new-task-form");
-let input = document.querySelector("#new-task-input");
-let listElement = document.querySelector("#tasks");
+const form = document.querySelector("#new-task-form");
+const input = document.querySelector("#new-task-input");
+const listElement = document.querySelector("#tasks");
+
+form.addEventListener("submit", (e) => {
+  /*
+    When using the e.preventDefault(); method in a submit event, it prevents the default
+    action of the submit event from happening. The default action of the submit event is a GET-request and it will also reload the page.
+  */
+  e.preventDefault();
+  let task = input.value;
+  if (!task) {
+    alert("Bitte gebe einen Task ein!");
+  } else {
+    createNewTask(task);
+    // Clear text input
+    input.value = "";
+  }
+});
 
 function addEditListener(taskEditElement, taskInputElement) {
   let isInEditMode = false;
@@ -25,16 +41,6 @@ function addDeleteListener(taskDeleteElement, taskElement) {
   taskDeleteElement.addEventListener("click", () => {
     listElement.removeChild(taskElement);
   });
-}
-
-function addActionButtons(taskActionsElement, taskEditElement, taskDeleteElement) {
-  taskEditElement.classList.add("edit");
-  taskEditElement.innerHTML = "Bearbeiten";
-  taskDeleteElement.classList.add("delete");
-  taskDeleteElement.innerHTML = "Löschen";
-
-  taskActionsElement.appendChild(taskEditElement);
-  taskActionsElement.appendChild(taskDeleteElement);
 }
 
 function createNewTask(task) {
@@ -62,7 +68,14 @@ function createNewTask(task) {
   let taskEditElement = document.createElement("button");
   let taskDeleteElement = document.createElement("button");
 
-  addActionButtons(taskActionsElement, taskEditElement, taskDeleteElement);
+  taskEditElement.classList.add("edit");
+  taskEditElement.innerHTML = "Bearbeiten";
+  taskDeleteElement.classList.add("delete");
+  taskDeleteElement.innerHTML = "Löschen";
+
+  taskActionsElement.appendChild(taskEditElement);
+  taskActionsElement.appendChild(taskDeleteElement);
+
   addEditListener(taskEditElement, taskInputElement);
   addDeleteListener(taskDeleteElement, taskElement);
 
@@ -70,20 +83,3 @@ function createNewTask(task) {
   taskElement.appendChild(taskActionsElement);
   listElement.appendChild(taskElement);
 }
-
-form.addEventListener("submit", (e) => {
-  /*
-    When using the e.preventDefault(); method in a submit event, it prevents the default
-    action of the submit event from happening. In the case of a form submit event,
-    the default action is to submit the form data to the server and reload the page.
-  */
-  e.preventDefault();
-  let task = input.value;
-  if (!task) {
-    alert("Bitte gebe einen Task ein!");
-  } else {
-    createNewTask(task);
-    // Clear text input
-    input.value = "";
-  }
-});
