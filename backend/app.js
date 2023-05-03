@@ -4,11 +4,12 @@ import express from "express";
 import { taskRouter } from "./routes/taskRoutes.js";
 import { indexRouter } from "./routes/index.js";
 import path from "path";
-import { flaschenpost } from 'flaschenpost';
+import { flaschenpost } from "flaschenpost";
 import { __dirname } from "./dirname.js";
-import { JsonFileTaskRepository } from './db/JsonFileTaskRepository.js';
+import { JsonFileTaskRepository } from "./db/JsonFileTaskRepository.js";
+import cors from "cors";
 
-const taskRepo = new JsonFileTaskRepository('./db/tasks.json');
+const taskRepo = new JsonFileTaskRepository("./db/tasks.json");
 
 const app = express();
 
@@ -23,10 +24,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 // der Router, den wir definieren soll ab dem root Teil der URL gültig sein
 app.use("/", indexRouter);
-app.use("/", taskRouter( taskRepo ));
+// Middleware von cors, um Cross-Origin-Anfragen zu erlauben:
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
+app.use("/", taskRouter(taskRepo));
 
 const port = 3030;
 
 app.listen(port, () => {
-    logger.info(`Server started on http://localhost:${port}`);
+  logger.info(`Server started on http://localhost:${port}`);
 });
