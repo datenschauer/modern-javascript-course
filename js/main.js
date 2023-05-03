@@ -8,11 +8,11 @@ form.addEventListener("submit", (e) => {
     action of the submit event from happening. The default action of the submit event is a GET-request and it will also reload the page.
   */
   e.preventDefault();
-  let task = input.value;
-  if (!task) {
+  const enteredTask = input.value;
+  if (!enteredTask) {
     alert("Bitte gebe einen Task ein!");
   } else {
-    createNewTask(task);
+    createNewTask(enteredTask);
     // Clear text input
     input.value = "";
   }
@@ -48,10 +48,10 @@ function createNewTask(task) {
   The document.createElement() method is used to create a new element in an HTML document.
   It takes a single argument, which is the name of the element to be created, and returns a reference to the new element.
   */
-  let taskElement = document.createElement("div");
+  const taskElement = document.createElement("div");
   taskElement.classList.add("task");
 
-  let taskInputElement = document.createElement("input");
+  const taskInputElement = document.createElement("input");
   taskInputElement.classList.add("text");
   taskInputElement.type = "text";
   taskInputElement.value = task;
@@ -62,11 +62,11 @@ function createNewTask(task) {
   taskInputElement.setAttribute("readonly", "readonly");
 
   // Add action buttons
-  let taskActionsElement = document.createElement("div");
+  const taskActionsElement = document.createElement("div");
   taskActionsElement.classList.add("task-actions");
 
-  let taskEditElement = document.createElement("button");
-  let taskDeleteElement = document.createElement("button");
+  const taskEditElement = document.createElement("button");
+  const taskDeleteElement = document.createElement("button");
 
   taskEditElement.classList.add("edit");
   taskEditElement.innerHTML = "Bearbeiten";
