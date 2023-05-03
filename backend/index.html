@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do App</title>
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="img/logo.svg" alt="To-Do App Logo" />
+        <h1>To-Do App</h1>
+      </div>
+      <form id="new-task-form">
+        <input type="text" id="new-task-input" placeholder="Was hast du geplant?" />
+        <input type="submit" id="new-task-submit" value="Task hinzufügen" />
+      </form>
+      <div class="error-msg" id="error-container"></div>
+    </header>
+    <main>
+      <div class="task-list">
+        <h2>Tasks</h2>
+        <div id="tasks">
+          <!-- <div class="task">
+            <div class="content">
+              <input type="text" class="text" id="0" value="Dies ist ein Beispiel für einen Task." readonly />
+            </div>
+            <div class="actions">
+              <button class="edit">Bearbeiten</button>
+              <button class="delete">Löschen</button>
+            </div>
+          </div>  -->
+        </div>
+      </div>
+    </main>
+    <script src="js/main.js"></script>
+  </body>
+</html>
