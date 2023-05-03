@@ -25,7 +25,7 @@ async function deleteTask(taskId) {
 }
 
 async function updateTask(taskId, taskText) {
-  const response = await fetch(`${API_URL}/${taskId}`, {
+  await fetch(`${API_URL}/${taskId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
