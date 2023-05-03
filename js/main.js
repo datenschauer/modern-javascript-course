@@ -30,7 +30,7 @@ function addEditListener(taskEditElement, taskInputElement) {
       taskInputElement.focus();
       taskEditElement.innerText = "Speichern";
     } else {
-      taskInputElement.setAttribute("readonly", "readonly");
+      taskInputElement.readOnly = true;
       taskEditElement.innerText = "Bearbeiten";
     }
     isInEditMode = !isInEditMode;
