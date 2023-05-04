@@ -1,6 +1,6 @@
 const form = document.querySelector("#new-task-form");
 const input = document.querySelector("#new-task-input");
-const listElement = document.querySelector("#tasks");
+const taskList = document.querySelector("#tasks");
 
 form.addEventListener("submit", (e) => {
   /*
@@ -22,7 +22,7 @@ function addEditListener(taskEditElement, taskInputElement) {
   let isInEditMode = false;
   taskEditElement.addEventListener("click", () => {
     if (!isInEditMode) {
-      taskInputElement.removeAttribute("readonly");
+      taskInputElement.readOnly = false;
       /*
       Calling focus() on it will cause the cursor to be placed in the field, ready for the user to enter text.
       The "readonly" attribute is deleted by this action.
@@ -39,7 +39,7 @@ function addEditListener(taskEditElement, taskInputElement) {
 
 function addDeleteListener(taskDeleteElement, taskElement) {
   taskDeleteElement.addEventListener("click", () => {
-    listElement.removeChild(taskElement);
+    taskList.removeChild(taskElement);
   });
 }
 
@@ -81,5 +81,5 @@ function createNewTask(task) {
 
   taskElement.appendChild(taskInputElement);
   taskElement.appendChild(taskActionsElement);
-  listElement.appendChild(taskElement);
+  taskList.appendChild(taskElement);
 }
