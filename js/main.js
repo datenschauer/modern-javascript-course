@@ -18,32 +18,7 @@ form.addEventListener("submit", (e) => {
   }
 });
 
-function addEditListener(taskEditElement, taskInputElement) {
-  let isInEditMode = false;
-  taskEditElement.addEventListener("click", () => {
-    if (!isInEditMode) {
-      taskInputElement.readOnly = false;
-      /*
-      Calling focus() on it will cause the cursor to be placed in the field, ready for the user to enter text.
-      The "readonly" attribute is deleted by this action.
-      */
-      taskInputElement.focus();
-      taskEditElement.innerText = "Speichern";
-    } else {
-      taskInputElement.readOnly = true;
-      taskEditElement.innerText = "Bearbeiten";
-    }
-    isInEditMode = !isInEditMode;
-  });
-}
-
-function addDeleteListener(taskDeleteElement, taskElement) {
-  taskDeleteElement.addEventListener("click", () => {
-    taskList.removeChild(taskElement);
-  });
-}
-
-function createNewTask(task) {
+function createNewTask(enteredTask) {
   /*
   The document.createElement() method is used to create a new element in an HTML document.
   It takes a single argument, which is the name of the element to be created, and returns a reference to the new element.
@@ -54,32 +29,57 @@ function createNewTask(task) {
   const taskInputElement = document.createElement("input");
   taskInputElement.classList.add("text");
   taskInputElement.type = "text";
-  taskInputElement.value = task;
+  taskInputElement.value = enteredTask;
   /*
-  The taskInputElement.setAttribute("readonly", "readonly") method sets the readonly attribute on the taskInputElement element.
+  Alternative: taskInputElement.setAttribute("readonly", "readonly") method sets the readonly attribute on the taskInputElement element.
   This means that the element will be displayed, but the user will not be able to interact with it or modify its content.
   */
-  taskInputElement.setAttribute("readonly", "readonly");
+  taskInputElement.readOnly = true;
 
   // Add action buttons
   const taskActionsElement = document.createElement("div");
   taskActionsElement.classList.add("task-actions");
 
-  const taskEditElement = document.createElement("button");
-  const taskDeleteElement = document.createElement("button");
+  const taskEditButton = document.createElement("button");
+  const taskDeleteButton = document.createElement("button");
 
-  taskEditElement.classList.add("edit");
-  taskEditElement.innerHTML = "Bearbeiten";
-  taskDeleteElement.classList.add("delete");
-  taskDeleteElement.innerHTML = "Löschen";
+  taskEditButton.classList.add("edit");
+  taskEditButton.innerHTML = "Bearbeiten";
+  taskDeleteButton.classList.add("delete");
+  taskDeleteButton.innerHTML = "Löschen";
 
-  taskActionsElement.appendChild(taskEditElement);
-  taskActionsElement.appendChild(taskDeleteElement);
+  taskActionsElement.appendChild(taskEditButton);
+  taskActionsElement.appendChild(taskDeleteButton);
 
-  addEditListener(taskEditElement, taskInputElement);
-  addDeleteListener(taskDeleteElement, taskElement);
+  addEditListener(taskEditButton, taskInputElement);
+  addDeleteListener(taskDeleteButton, taskElement);
 
   taskElement.appendChild(taskInputElement);
   taskElement.appendChild(taskActionsElement);
   taskList.appendChild(taskElement);
+}
+
+function addEditListener(taskEditButton, taskInputElement) {
+  let isInEditMode = false;
+  taskEditButton.addEventListener("click", () => {
+    if (isInEditMode) {
+      taskInputElement.readOnly = true;
+      taskEditButton.innerHTML = "Bearbeiten";
+    } else {
+      taskInputElement.readOnly = false;
+      /*
+      Calling focus() on it will cause the cursor to be placed in the field, ready for the user to enter text.
+      The "readonly" attribute is deleted by this action.
+      */
+      taskInputElement.focus();
+      taskEditButton.innerHTML = "Speichern";
+    }
+    isInEditMode = !isInEditMode;
+  });
+}
+
+function addDeleteListener(taskDeleteButton, taskElement) {
+  taskDeleteButton.addEventListener("click", () => {
+    taskList.removeChild(taskElement);
+  });
 }
