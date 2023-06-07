@@ -18,12 +18,13 @@ const logger = flaschenpost.getLogger();
 // wir wollen JSON verarbeiten können
 app.use(express.json());
 // aber natürlich wollen wir auch urls und den body des requests parsen können
+// wir setzen 'extended' auf false, weil wir die query-string Bibliothek und nicht die qs Bibliothek verwenden wollen
 app.use(express.urlencoded({ extended: false }));
 // hier geben wir noch das Verzeichnis für statische Dateien an (css, js, fonts...)
 app.use(express.static(path.join(__dirname, "public")));
 // der Router, den wir definieren soll ab dem root Teil der URL gültig sein
+app.use("/api", taskRouter( taskRepo ));
 app.use("/", indexRouter);
-app.use("/", taskRouter( taskRepo ));
 
 const port = 3030;
 

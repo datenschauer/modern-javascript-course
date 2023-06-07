@@ -9,7 +9,7 @@ export class JsonFileTaskRepository extends TaskRepository {
     constructor(filename) {
         super();
         this.filename = path.resolve(filename);
-        this.data = [];
+        this.data = null;
         this.load();
     }
 
