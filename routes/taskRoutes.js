@@ -11,9 +11,9 @@ export function taskRouter ( taskRepo ) {
 
     router.post('/tasks', addTask(taskRepo));
 
-    router.put('/tasks/:id', updateTask(taskRepo));
+    router.put('/task(s)?/:id', updateTask(taskRepo));
 
-    router.delete('/tasks/:id', deleteTask(taskRepo));
+    router.delete('/task(s)?/:id', deleteTask(taskRepo));
 
     return router;
 }

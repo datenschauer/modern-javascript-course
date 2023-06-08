@@ -1,10 +1,12 @@
 "use strict";
 
 let form = document.querySelector("#new-task-form");
+form.dataset.test = 'newTaskForm';
 let input = document.querySelector("#new-task-input");
+input.dataset.test = 'newTaskInput';
 let listElement = document.querySelector("#tasks");
 
-const baseUrl = "http://localhost:3030"
+const baseUrl = "http://localhost:3030/api"
 
 function addEditListener(taskEditElement, taskInputElement) {
   let isInEditMode = false;
@@ -44,8 +46,10 @@ function addDeleteListener(taskDeleteElement, taskElement) {
 function addActionButtons(taskActionsElement, taskEditElement, taskDeleteElement) {
   taskEditElement.classList.add("edit");
   taskEditElement.innerHTML = "Bearbeiten";
+  taskEditElement.dataset.test = 'taskEditButton';
   taskDeleteElement.classList.add("delete");
   taskDeleteElement.innerHTML = "Löschen";
+  taskDeleteElement.dataset.test = 'taskDeleteButton';
 
   taskActionsElement.appendChild(taskEditElement);
   taskActionsElement.appendChild(taskDeleteElement);
@@ -58,15 +62,18 @@ function createNewTask(text, id) {
   */
   let taskElement = document.createElement("div");
   taskElement.classList.add("task");
+  taskElement.dataset.test = 'taskElement'; // added for testing
 
   let taskContentElement = document.createElement("div");
   taskContentElement.classList.add("content");
+  taskContentElement.dataset.test = 'taskContent'; // added for testing
 
   let taskInputElement = document.createElement("input");
   taskInputElement.classList.add("text");
   taskInputElement.id = id ?? '0';
   taskInputElement.type = "text";
   taskInputElement.value = text;
+  taskInputElement.dataset.test = 'taskInput';
   /*
   The taskInputElement.setAttribute("readonly", "readonly") method sets the readonly attribute on the taskInputElement element.
   This means that the element will be displayed, but the user will not be able to interact with it or modify its content.
@@ -113,7 +120,7 @@ form.addEventListener("submit", (e) => {
 });
 
 async function getInitialTasks() {
-  const response = await fetch('http://localhost:3030/tasks');
+  const response = await fetch(`${baseUrl}/tasks`);
   if (response) {
     const tasks = await response.json();
     for (let task of tasks) {

@@ -31,3 +31,5 @@ const port = 3030;
 app.listen(port, () => {
     logger.info(`Server started on http://localhost:${port}`);
 });
+
+export default app;

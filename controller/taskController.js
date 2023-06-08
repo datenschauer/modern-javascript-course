@@ -17,7 +17,7 @@ export function addTask(taskRepo) {
         if (text && typeof text === 'string' && text.length <= 140) {
             const task = new Task(text);
             await taskRepo.addTask(task);
-            res.json(task.id);
+            res.json(JSON.stringify(task));
         } else {
             throw new Error('Task konnte nicht angelegt werden.');
         }
