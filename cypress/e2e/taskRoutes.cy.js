@@ -31,6 +31,7 @@ describe('Task Routes', () => {
     before('add a task to test against', () => {
         cy.request('POST', '/api/tasks', { text: 'To be deleted task'} ).then((response) => {
             taskId = response.body.id;
+            console.log(`This is the created task ID: ${taskId}`);
         })
     })
     it('should delete a task', () => {

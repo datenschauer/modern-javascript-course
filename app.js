@@ -4,11 +4,28 @@ import express from "express";
 import { taskRouter } from "./routes/taskRoutes.js";
 import { indexRouter } from "./routes/index.js";
 import path from "path";
+import * as dotenv from 'dotenv';
 import { flaschenpost } from 'flaschenpost';
 import { __dirname } from "./dirname.js";
 import { JsonFileTaskRepository } from './db/JsonFileTaskRepository.js';
+import { PostgresTaskRepository } from "./db/PostgresTaskRepository.js";
 
-const taskRepo = new JsonFileTaskRepository('./db/tasks.json');
+dotenv.config();
+let taskRepo;
+switch (process.env.DB) {
+    case 'postgres':
+        const host = process.env.PGHOST;
+        const database = process.env.PGDATABASE;
+        const user = process.env.PGUSER;
+        const password = process.env.PGPASSWORD;
+        const port = parseInt(process.env.PGPORT, 10);
+        taskRepo = new PostgresTaskRepository(
+            host, database, user, password, port
+        );
+        break;
+    case 'json':
+        taskRepo = new JsonFileTaskRepository('./db/tasks.json');
+}
 
 const app = express();
 
