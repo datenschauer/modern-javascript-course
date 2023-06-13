@@ -10,6 +10,8 @@ import { __dirname } from "./dirname.js";
 import { JsonFileTaskRepository } from './db/JsonFileTaskRepository.js';
 import { PostgresTaskRepository } from "./db/PostgresTaskRepository.js";
 
+const logger = flaschenpost.getLogger();
+
 dotenv.config();
 let taskRepo;
 switch (process.env.DB) {
@@ -19,17 +21,19 @@ switch (process.env.DB) {
         const user = process.env.PGUSER;
         const password = process.env.PGPASSWORD;
         const port = parseInt(process.env.PGPORT, 10);
-        taskRepo = new PostgresTaskRepository(
-            host, database, user, password, port
-        );
+        try {
+            taskRepo = new PostgresTaskRepository(
+                host, database, user, password, port
+            );
+        } catch (e) {
+            logger.error(e);
+        }
         break;
     case 'json':
         taskRepo = new JsonFileTaskRepository('./db/tasks.json');
 }
 
 const app = express();
-
-const logger = flaschenpost.getLogger();
 
 // HIER definieren wir die Middleware, die wir verwenden wollen mit app.use()
 // wir wollen JSON verarbeiten können
