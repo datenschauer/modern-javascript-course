@@ -21,7 +21,7 @@ function addEditListener(taskEditElement, taskInputElement) {
       taskInputElement.setAttribute("readonly", "readonly");
       taskEditElement.innerText = "Bearbeiten";
       dbQuery(
-        `${baseUrl}/tasks/${taskInputElement.id}`,
+        `${baseUrl}/api/tasks/${taskInputElement.id}`,
         "PUT",
         { text: taskInputElement.value },
         );
@@ -34,7 +34,7 @@ function addDeleteListener(taskDeleteElement, taskElement) {
   taskDeleteElement.addEventListener("click", () => {
      const id = taskElement.firstChild.firstChild.id;
      dbQuery(
-         `${baseUrl}/tasks/${id}`,
+         `${baseUrl}/api/tasks/${id}`,
          "DELETE",
      )
      listElement.removeChild(taskElement);
@@ -51,7 +51,7 @@ function addActionButtons(taskActionsElement, taskEditElement, taskDeleteElement
   taskActionsElement.appendChild(taskDeleteElement);
 }
 
-function createNewTask(text, id) {
+async function createNewTask(text, id) {
   /*
   The document.createElement() method is used to create a new element in an HTML document.
   It takes a single argument, which is the name of the element to be created, and returns a reference to the new element.
@@ -91,11 +91,13 @@ function createNewTask(text, id) {
 
   // wenn noch keine ID vorhanden war, müssen wir den Task auch auf dem Server anlegen
   if (taskInputElement.id === '0') {
-    dbQuery(`${baseUrl}/tasks`, 'POST', { text: text });
+    dbQuery(`${baseUrl}/api/tasks`, 'POST', {text: text})
+        .then(response => response.json())
+        .then(id => taskInputElement.id = id);
   }
 }
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   /*
     When using the e.preventDefault(); method in a submit event, it prevents the default
     action of the submit event from happening. In the case of a form submit event,
@@ -106,18 +108,18 @@ form.addEventListener("submit", (e) => {
   if (!text) {
     alert("Bitte gebe einen Task ein!");
   } else {
-    createNewTask(text);
+    await createNewTask(text);
     // Clear text input
     input.value = "";
   }
 });
 
 async function getInitialTasks() {
-  const response = await fetch('http://localhost:3030/tasks');
+  const response = await fetch('http://localhost:3030/api/tasks');
   if (response) {
     const tasks = await response.json();
     for (let task of tasks) {
-      createNewTask(task.text, task.id);
+      await createNewTask(task.text, task.id);
     }
   }
 }
@@ -125,14 +127,13 @@ async function getInitialTasks() {
 document.addEventListener("DOMContentLoaded", getInitialTasks);
 
 async function dbQuery (url, method, body={}, contentType="application/json") {
-    await fetch(url, {
+  try {
+    return await fetch(url, {
       method: method,
       headers: {"Content-Type": contentType},
       body: JSON.stringify(body),
-    }).then(() => console.log(`${method} query successful!`)).catch(_ => {
-      let errorContainer = document.querySelector("#error-container");
-      let errorMsg = document.createElement("p");
-      errorMsg.innerHTML = `Verbindung zum Server konnte nicht hergestellt werden! Versuchen Sie es später noch einmal.`;
-      errorContainer.appendChild(errorMsg);
-    });
+    })
+  } catch (e) {
+    console.log(e);
+  }
 }
