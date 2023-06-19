@@ -1,6 +1,13 @@
 import { jest } from '@jest/globals'
 import { addTask } from './taskController.js';
 
+describe('test function add', () => {
+    const add = (m, n) => m + n;
+    it('1 + 2 should equal 3', () => {
+        expect(add(1, 2)).toBe(4);
+    })
+})
+
 describe('Task Controller', () => {
     it('should add a task', async () => {
         const mockTaskRepo = {
