@@ -6,6 +6,8 @@ import { indexRouter } from "./routes/index.js";
 import path from "path";
 import * as dotenv from 'dotenv';
 import { flaschenpost } from 'flaschenpost';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { __dirname } from "./dirname.js";
 import { JsonFileTaskRepository } from './db/JsonFileTaskRepository.js';
 import { PostgresTaskRepository } from "./db/PostgresTaskRepository.js";
@@ -33,11 +35,18 @@ switch (process.env.DB) {
         taskRepo = new JsonFileTaskRepository('./db/tasks.json');
 }
 
+const corsOptions = {
+    credentials: true,
+    origin: process.env.URL || 'http://localhost'
+};
+
 const app = express();
 
+app.use(cors(corsOptions));
 // HIER definieren wir die Middleware, die wir verwenden wollen mit app.use()
 // wir wollen JSON verarbeiten können
 app.use(express.json());
+app.use(cookieParser());
 // aber natürlich wollen wir auch urls und den body des requests parsen können
 // wir setzen 'extended' auf false, weil wir die query-string Bibliothek und nicht die qs Bibliothek verwenden wollen
 app.use(express.urlencoded({ extended: false }));
