@@ -33,7 +33,7 @@ export function createUser( userRepo ) {
         const keyLength = 64;
         const hashAlgorithm = 'sha512';
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, _) => {
             crypto.pbkdf2(password, salt, iterations, keyLength, hashAlgorithm, (err, derivedKey) => {
                 if (err) {
                 } else {
