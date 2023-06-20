@@ -1,7 +1,7 @@
-import {TaskRepository} from "../interfaces/taskRepository.js";
+import {UserRepository} from "../interfaces/userRepository.js";
 import pg from 'pg';
 
-export class PostgresTaskRepository extends TaskRepository {
+export class PostgresUserRepository extends UserRepository {
     constructor(host, database, user, password, port=5334) {
         super();
         this.host = host;
@@ -36,10 +36,10 @@ export class PostgresTaskRepository extends TaskRepository {
     async initialize() {
         try {
             await this.query(`
-                CREATE TABLE IF NOT EXISTS tasks (
+                CREATE TABLE IF NOT EXISTS users (
                     id uuid primary key ,
-                    text text,
-                    userId uuid
+                    email varchar(255) ,
+                    hashed_password varchar(255)
                 );
             `)
         } catch (e) {
@@ -47,49 +47,40 @@ export class PostgresTaskRepository extends TaskRepository {
         }
     }
 
-    async getTasks(userId) {
-        let tasks;
+    async createUser(user) {
         try {
-            tasks = await this.query(`
-                SELECT * FROM tasks WHERE userId = ${userId};
+            await this.query(`
+                INSERT INTO users (id, email, hashed_password)
+                VALUES ('${user.id}', '${user.email}', '${user.hashed_password}');
             `);
         } catch (e) {
             throw new Error(`${this.errorMsg}${e}`);
         }
-        return tasks.rows;
     }
 
-    async addTask( task ) {
+    async getUserById( id ) {
+        let user;
         try {
-            await this.query(`
-                INSERT INTO tasks ( id, text, userId )
-                VALUES ('${task.id}', '${task.text}', '${task.userId}')
+            user = await this.query(`
+                SELECT * FROM users
+                WHERE id = ${id};
             `)
         } catch (e) {
             throw new Error(`${this.errorMsg}${e}`);
         }
+        return user.rows;
     }
 
-    async updateTask( userId, id, text ) {
+    async getUserByEmail( email ) {
+        let user;
         try {
-            await this.query(`
-                UPDATE tasks
-                SET text = '${text}'
-                WHERE id = '${id}' AND userId = '${userId}';
+            user = await this.query(`
+                SELECT * FROM users
+                WHERE email =${email};
             `)
         } catch (e) {
             throw new Error(`${this.errorMsg}${e}`);
         }
-    }
-
-    async deleteTask( userId, id ) {
-        try {
-            await this.query(`
-                DELETE FROM tasks
-                WHERE id = '${id}' AND userId = '${userId}';
-            `)
-        } catch (e) {
-           throw new Error(`${this.errorMsg}${e}`);
-        }
+        return user.rows;
     }
 }

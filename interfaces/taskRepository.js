@@ -1,8 +1,8 @@
 export class TaskRepository {
-    async getTasks() {}; // hole alle Tasks
-    async addTask(task) {}; // füge einen Task hinzu
-    async updateTask(id, text) {}; // aktualisiere einen Task
-    async deleteTask(id) {}; // lösche einen Task
+    async getTasks(userId) {}; // hole alle Tasks eines Users
+    async addTask(taskObject) {}; // füge einen Task hinzu
+    async updateTask(userId, taskId, text) {}; // aktualisiere einen Task
+    async deleteTask(userId, taskId) {}; // lösche einen Task
 
     // weitere mögliche Operationen wären deleteAllTasks, filterTasks o.ä.
 }
