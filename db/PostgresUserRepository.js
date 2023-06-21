@@ -83,4 +83,16 @@ export class PostgresUserRepository extends UserRepository {
         }
         return user.rows;
     }
+
+    async getAllUsers() {
+        let users;
+        try {
+            users = await this.query(`
+                SELECT * FROM users;
+            `)
+        } catch (e) {
+           console.error(e);
+        }
+        return users.rows;
+    }
 }

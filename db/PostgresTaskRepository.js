@@ -51,10 +51,10 @@ export class PostgresTaskRepository extends TaskRepository {
         let tasks;
         try {
             tasks = await this.query(`
-                SELECT * FROM tasks WHERE userId = ${userId};
+                SELECT * FROM tasks WHERE userid = '${userId}';
             `);
         } catch (e) {
-            throw new Error(`${this.errorMsg}${e}`);
+            console.error(e);
         }
         return tasks.rows;
     }
@@ -62,11 +62,11 @@ export class PostgresTaskRepository extends TaskRepository {
     async addTask( task ) {
         try {
             await this.query(`
-                INSERT INTO tasks ( id, text, userId )
+                INSERT INTO tasks ( id, text, userid )
                 VALUES ('${task.id}', '${task.text}', '${task.userId}')
             `)
         } catch (e) {
-            throw new Error(`${this.errorMsg}${e}`);
+            console.error(e);
         }
     }
 
@@ -75,10 +75,10 @@ export class PostgresTaskRepository extends TaskRepository {
             await this.query(`
                 UPDATE tasks
                 SET text = '${text}'
-                WHERE id = '${id}' AND userId = '${userId}';
+                WHERE id = '${id}' AND userid = '${userId}';
             `)
         } catch (e) {
-            throw new Error(`${this.errorMsg}${e}`);
+            console.error(e);
         }
     }
 
@@ -86,10 +86,10 @@ export class PostgresTaskRepository extends TaskRepository {
         try {
             await this.query(`
                 DELETE FROM tasks
-                WHERE id = '${id}' AND userId = '${userId}';
+                WHERE id = '${id}' AND userid = '${userId}';
             `)
         } catch (e) {
-           throw new Error(`${this.errorMsg}${e}`);
+           console.error(e);
         }
     }
 }

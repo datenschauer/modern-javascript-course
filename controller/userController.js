@@ -25,6 +25,17 @@ export function getUserByEmail( userRepo ) {
     }
 }
 
+export function getAllUsers( userRepo ) {
+    return async function (req, res) {
+        try {
+            const users = await userRepo.getAllUsers();
+            res.json(users);
+        } catch (e) {
+            res.status(404).send(e);
+        }
+    }
+}
+
 export function createUser( userRepo ) {
 
     const hash = function (password) {
