@@ -25,13 +25,10 @@ function TaskList() {
   }, [serverTasks, setTaskList]);
 
   return (
-    <div className="task-list">
-      <h2>Tasks</h2>
-      <div id="tasks">
-        {taskList.map((task) => (
-          <TaskItem key={task.id} task={task} />
-        ))}
-      </div>
+    <div id="tasks">
+      {taskList.map((task) => (
+        <TaskItem key={task.id} task={task} />
+      ))}
     </div>
   );
 }

@@ -13,6 +13,7 @@ function App() {
       <TaskContext.Provider value={{ taskList, setTaskList }}>
         <Header />
         <main>
+           <h2>Tasks</h2>
           <TaskList />
         </main>
       </TaskContext.Provider>
