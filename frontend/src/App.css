@@ -11,7 +11,7 @@
 }
 
 * {
-  font-family: "Manrope";
+  font-family: "Manrope", Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -22,7 +22,7 @@ body {
 header {
   max-width: 800px;
   width: 100%;
-  margin: 12px auto; /* When "auto" is used as the value for the "margin" property, it centers the element horizontally within its container. */
+  margin: 12px auto;
 }
 
 .logo {
@@ -55,7 +55,7 @@ h2 {
 
 input,
 button {
-  appearance: none;
+  appearance: none; /* /* https://developer.mozilla.org/en-US/docs/Web/CSS/appearance */
   border: none;
   outline: none;
   background: none;
@@ -68,27 +68,27 @@ button {
 }
 
 #new-task-input::placeholder {
-  color: var(--grey); /* Set the color of the preview text */
+  color: var(--grey);
 }
 
 #new-task-input:-webkit-autofill {
-  -webkit-background-clip: text; /* Wenn der Benutzer Text in dieses Feld eingibt und die Autofill-Funktion des Browsers ausgelöst wird, legt diese Regel die Hintergrundfarbe des Textes auf die gleiche Farbe wie die Hintergrundfarbe des Eingabefelds fest, so dass es aussieht, als wäre der Text nahtlos ohne Unterbrechung ausgefüllt. */
+  -webkit-background-clip: text; /* Safari, Chrome, Opera */
+  background-clip: text; /* Firefox */
 }
 
 #new-task-submit {
-  padding-left: 14px;
-  padding-right: 14px;
+  padding: 0px 14px;
+  border-left: 1px solid #f1f1f1;
+  font-weight: 800;
+  cursor: pointer;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  border-left: 1px solid rgb(240, 240, 240);
-  font-weight: 700;
-  cursor: pointer;
   transition: 0.2s;
 }
 
 #new-task-submit:hover {
-  color: var(--lightest);
   background-color: var(--darkest);
+  color: var(--lightest);
 }
 
 #tasks {
@@ -106,9 +106,9 @@ button {
 }
 
 .task .text {
-  transition: 0.4s;
   width: 100%;
   margin-right: 10px;
+  transition: 0.2s;
 }
 
 .task .text:not(:read-only) {
@@ -117,24 +117,24 @@ button {
 
 .task-actions {
   display: flex;
+  flex-direction: row;
   gap: 10px;
 }
 
 .task-actions button {
-  border-radius: 8px;
   background-color: var(--lighter);
+  border-radius: 8px;
+  padding: 6px 8px;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 6px 8px;
   cursor: pointer;
-  transition: 0.4s;
+  transition: 0.2s;
 }
 
 .task-actions button:hover {
   color: var(--lightest);
   background-color: var(--dark);
-  opacity: 0.8;
 }
 
 .task-actions .delete {
@@ -144,5 +144,5 @@ button {
 
 .task-actions .delete:hover {
   background-color: var(--dark-red);
-  color: var(--lighter);
+  color: var(--light-red);
 }

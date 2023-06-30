@@ -5,7 +5,6 @@ import { fetchTasks } from "../api";
 
 function TaskList() {
   const { taskList, setTaskList } = useContext(TaskContext);
-
   const [serverTasks, setServerTasks] = useState([]);
 
   useEffect(() => {
@@ -13,16 +12,13 @@ function TaskList() {
       try {
         const tasks = await fetchTasks();
         setServerTasks(tasks);
+        setTaskList(tasks);
       } catch (error) {
         alert("Fehler beim Laden der Tasks.");
       }
     }
     getTasks();
-  }, []);
-
-  useEffect(() => {
-    setTaskList(serverTasks);
-  }, [serverTasks, setTaskList]);
+  }, [setTaskList]);
 
   return (
     <div id="tasks">
